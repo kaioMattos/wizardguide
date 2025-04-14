@@ -5,13 +5,22 @@ export const WzdGdContext = createContext();
 
 export const WzdGdContextProvider = (props) => {
     const [supplier, setSupplier] = useState({
+        documentId:'',
         cnpj: [],
         manufacturer: [],
         _class: [],
         exclusivityLetter: [],
-        activeNextDisabled: true
+        activeNextDisabled: true,
+        validatedPetro:'',        
     })
 
+    const setActiveForm = (sValue)=>{
+        setSupplier({...supplier, validatedPetro:sValue})
+    }
+
+    const setSupplierContext = (supplier)=>{
+        setSupplier(supplier)
+    }
     const setExpiredDate = (item, action)=>{
         const remapEL = supplier.exclusivityLetter.map((document)=>{
             if(document.id === item.id){
@@ -26,7 +35,8 @@ export const WzdGdContextProvider = (props) => {
     }
     
     const setExclusivityLetter = (aExclusivityLetter) => {
-        setSupplier({ ...supplier, exclusivityLetter: aExclusivityLetter, activeNextDisabled: true })
+        const bActiveNext = !aExclusivityLetter.filter((item)=>(item.status && item.expiredDateTime !== '')).length ? true : false;
+        setSupplier({ ...supplier, exclusivityLetter: aExclusivityLetter, activeNextDisabled: bActiveNext })
     }
 
     const setClass = (aClass) => {
@@ -59,7 +69,7 @@ export const WzdGdContextProvider = (props) => {
     return <WzdGdContext.Provider value={{
         supplier, setCnpj, setManufacturer,
         setClass, setExclusivityLetter, setActiveNext, setAssembleInitDataPerCnpj, setManufClass,
-        setExpiredDate
+        setExpiredDate, setSupplierContext, setActiveForm
     }}>
         {props.children}
     </WzdGdContext.Provider>

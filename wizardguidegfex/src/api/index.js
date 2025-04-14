@@ -11,14 +11,15 @@ const instance = axios.create({
 });
 
 export const getSupplier = async (params = { $top: 100, $skip: 0 }) => {
-  const { data } = await instance.get("/CentralConsumer", {
+  const { data } = await instance.get("/CentralConsumer?sap-client=220", {
     params
   });
-
-  return data.d?.results || data.d || data.value;
+  if(!!data.d.results.length)
+    return data.d?.results[0]
+  return []
 };
 export const getManufacturer = async (params = { $top: 100, $skip: 0 }) => {
-  const { data } = await instance.get("/ManufacturerMaterial", {
+  const { data } = await instance.get("/ManufacturerMaterial?sap-client=220", {
     params
   });
 
@@ -26,7 +27,7 @@ export const getManufacturer = async (params = { $top: 100, $skip: 0 }) => {
 };
 
 export const getClass = async (params = { $top: 1000, $skip: 0 }) => {
-  const { data } = await instance.get("/MaterialClass", {
+  const { data } = await instance.get("/MaterialClass?sap-client=220", {
     params
   });
 
@@ -34,7 +35,7 @@ export const getClass = async (params = { $top: 1000, $skip: 0 }) => {
 };
 
 export const getTableCount = async () => {
-  const { data } = await instance.get("/CentralConsumer/$count");
+  const { data } = await instance.get("/CentralConsumer/$count?sap-client=220");
   return data;
 };
 
@@ -81,6 +82,30 @@ export const postSupplier= async (oEntry) => {
   }
 }
 
+export const putSupplier= async (oEntry) => {
+
+  const csrfToken = await fetchXCSRFToken();
+
+  if (!csrfToken) {
+    console.error('Failed to retrieve CSRF token.');
+    return;
+  }
+
+  try {
+    const response = await axios.put(`${baseURLSUPPLIER}/SuppliersGFEX('${oEntry.documentId}')?sap-client=220`, {
+      ...oEntry
+    }, {
+      headers: {
+        'X-CSRF-Token': csrfToken,
+        'Content-Type': 'application/json'
+      }
+    });
+    console.log('OData request successful:', response.data);
+  } catch (error) {
+    console.error('Error making OData request:', error);
+  }
+}
+
 export const postExclusivityLetter = async (oEntry) => {
 
   const csrfToken = await fetchXCSRFToken();
@@ -94,6 +119,28 @@ export const postExclusivityLetter = async (oEntry) => {
     const response = await axios.post(`${baseURLSUPPLIER}/ExclusiveCardGFEX?sap-client=220`, {
       ...oEntry
     }, {
+      headers: {
+        'X-CSRF-Token': csrfToken,
+        'Content-Type': 'application/json'
+      }
+    });
+    console.log('OData request successful:', response.data);
+  } catch (error) {
+    console.error('Error making OData request:', error);
+  }
+}
+
+export const deleteExclusivityLetter = async (oEntry) => {
+
+  const csrfToken = await fetchXCSRFToken();
+
+  if (!csrfToken) {
+    console.error('Failed to retrieve CSRF token.');
+    return;
+  }
+
+  try {
+    const response = await axios.delete(`${baseURLSUPPLIER}/ExclusiveCardGFEX(guid'${oEntry.id}')?sap-client=220`, {
       headers: {
         'X-CSRF-Token': csrfToken,
         'Content-Type': 'application/json'

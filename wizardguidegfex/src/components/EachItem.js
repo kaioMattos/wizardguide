@@ -10,9 +10,11 @@ import IconButton from "@material-ui/core/IconButton";
 import CorporateFareIcon from '@mui/icons-material/CorporateFare';
 import CheckIcon from "@material-ui/icons/Check";
 import ClearIcon from "@material-ui/icons/Clear";
+import Divider from '@mui/material/Divider';
 
 const EachItem = ({ oItem, toDoDeleteHandler, icon, iconButtonHandler }) => {
   return (
+    <>
     <ListItem >
        <ListItemIcon style={{color: 'rgb(0,98,152)'}}>
           {icon}
@@ -28,6 +30,8 @@ const EachItem = ({ oItem, toDoDeleteHandler, icon, iconButtonHandler }) => {
         </IconButton>
       </ListItemSecondaryAction>
     </ListItem>
+    <Divider variant="inset" component="li" />
+    </>
   );
 };
 

@@ -23,14 +23,22 @@ const readFile = (file)=>{
   });
 }
 
-const getDateNowFrontFormated = () => {
-  const oDate = new Date();
+const getDateNowFrontFormated = (sTime, format) => {
+  let sDate = '';
+  const oDate = new Date(sTime);
   const year = oDate.getFullYear();
   const month = (oDate.getMonth()+1) <= 9 ? `0${oDate.getMonth()+1}` : (oDate.getMonth()+1);
   const day = oDate.getDate() <= 9 ? `0${oDate.getDate()}` : oDate.getDate();
   const hours = oDate.getHours() <= 9 ? `0${oDate.getHours()}` : oDate.getHours();
   const minutes = oDate.getMinutes() <= 9 ? `0${oDate.getMinutes()}` : oDate.getMinutes();
-  return `${day}-${month}-${year} ${hours}:${minutes}`
+  if(format === 'dataAtMinutes'){
+    sDate = `${day}-${month}-${year} ${hours}:${minutes}`
+  }else{
+    sDate = `${day}-${month}-${year}`
+  }
+  return sDate
 }
+
+
 
 export {assembleOrFilterGeneric, removeDuplicatesFromArray, readFile, getDateNowFrontFormated}

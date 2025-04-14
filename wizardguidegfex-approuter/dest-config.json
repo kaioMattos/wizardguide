@@ -1,0 +1,23 @@
+{
+    "init_data": {
+        "instance": {
+            "existing_destinations_policy": "update",
+            "destinations": [
+		        {
+                    "Name": "gfexs42Destination",
+                    "Authentication": "BasicAuthentication",
+                    "ProxyType": "OnPremise",
+                    "Type": "HTTP",
+                    "URL": "http://sccvhs42:9999/",
+                    "User":"ABAPFUZ5",
+                    "Password":"Projeto05!",
+                    "HTML5.DynamicDestination":true,
+                    "HTML5.Timeout":60000,
+                    "WebIDEEnabled":true,
+                    "WebIDESystem":"S42",
+                    "WebIDEUsage":"odata_abap,odata_gen,ui5_execute_abap,dev_abap"
+                }
+            ]
+        }
+    }
+}

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Grid, TextField, List, Box } from '@material-ui/core';
+import { Grid, List } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import EachItem from "../../components/EachItem";
 import { PiUserCircleFill } from "react-icons/pi";
@@ -11,30 +11,11 @@ import { assembleOrFilterGeneric, removeDuplicatesFromArray } from '../../util';
 import { InputText } from 'primereact/inputtext';
 import { IconField } from 'primereact/iconfield';
 import { InputIcon } from 'primereact/inputicon';
-
-const useStyles = makeStyles((theme) => ({
-
-  form: {
-    marginTop: theme.spacing(1),
-    margin: 'auto',
-    padding: 20,
-  },
-  buttonAdd: {
-    backgroundColor: 'rgb(138,35,135)',
-    background: 'rgb(135, 88, 255)',
-    color: 'rgb(255, 255, 255)',
-    border: 'none',
-    cursor: 'pointer',
-  },
-  list: {
-    marginLeft: theme.spacing(2),
-    marginRight: theme.spacing(2),
-  }
-}))
+import { useStyles } from './wizardStepCss';
 
 export default function CnpjForm() {
   const classes = useStyles();
-  const { supplier, setCnpj, setActiveNext, setManufacturer, setAssembleInitDataPerCnpj } = useWzdGd();
+  const { supplier,  setActiveNext, setAssembleInitDataPerCnpj } = useWzdGd();
   const [notFounded, setNotFounded] = useState(false);
   const [state, setState] = useState({ error: false, inputCnpj: "" });
   const [loading, setLoading] = useState(false);
@@ -68,7 +49,6 @@ export default function CnpjForm() {
       ManufacturerNumber: item.ManufacturerNumber,
       status: true
     }))
-    // console.log(classCollection)
     const _class = removeDuplicatesFromArray(classCollection);
     return [...supplier._class, ..._class]
   }
@@ -93,8 +73,7 @@ export default function CnpjForm() {
           const aCollectionManufacturer = await assembleManufacturer(sCnpj);
           const aCollectionClass = await assembleClass(sCnpj);
 
-          setAssembleInitDataPerCnpj(aCollectionCnpj, aCollectionManufacturer, aCollectionClass)
-          // setActiveNext(true);
+          setAssembleInitDataPerCnpj(aCollectionCnpj, aCollectionManufacturer, aCollectionClass);
           setNotFounded(false);
         } else {
           setNotFounded(true);
@@ -125,7 +104,6 @@ export default function CnpjForm() {
       const finded = !retiredManufacturer.find((manufacturer) => (manufacturer.ManufacturerNumber === item.ManufacturerNumber));
       return finded
     });
-    // console.log(aCltClass)
     setAssembleInitDataPerCnpj(aCltCnpj, aCltManuf, aCltClass);
   };
 
@@ -137,7 +115,6 @@ export default function CnpjForm() {
   return (
     <React.Fragment>
       <form onSubmit={addToDoHandler}>
-        
           <Grid container spacing={3}  >
             <Grid item xs={12} sm={12}>
               <div className="flex flex-column gap-2" style={{ textAlign: 'left', color: 'rgb(77, 77, 77)' }}>
@@ -156,17 +133,6 @@ export default function CnpjForm() {
                   Tecle enter para Adicionar
                 </small>
               </div>
-              {/* <TextField
-                required
-                id="cnpj"
-                name="inputCnpj"
-                label="Insira aqui a chave do Fornecedor"
-                fullWidth
-                autoComplete="shipping address-line1"
-                error={state.error}
-                value={state.inputCnpj}
-                onChange={inputHandler}
-              /> */}
               <Collapse in={notFounded}>
                 <Alert sx={{ borderRadius: '6px', padding: '4px 10px' }} severity="error">Fornecedor não encontrado</Alert>
               </Collapse>
@@ -198,7 +164,6 @@ export default function CnpjForm() {
               }
             </Grid>
           </Grid>
-        
       </form>
     </React.Fragment>
   );

@@ -102,12 +102,11 @@ export const useStyles = makeStyles((theme) => ({
     justifyContent: 'flex-end',
   },
   button: {
-    backgroundColor: 'rgb(1, 77, 117)',
+    backgroundColor: 'rgb(0,142,145)',
     color: '#fff',
     marginTop: theme.spacing(3),
     marginLeft: theme.spacing(1),
-    padding: '8px',
-    borderRadius: '8px',
+    borderRadius: '6px',
     '&:hover': {
       backgroundColor: 'rgb(0, 98, 152)',
 

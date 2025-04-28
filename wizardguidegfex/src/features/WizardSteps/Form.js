@@ -12,7 +12,7 @@ import CnpjForm from './Cnpj';
 import ManufacturerForm from './Manufacturer';
 import ClassForm from './Class';
 import ExclusivityLetterForm from './ExclusivityLetter';
-import CustomDialog from '../../components/modal'
+import CustomDialog from '../../components/modal';
 import { QontoStepIconRoot, ColorlibStepIconRoot, useStyles } from './wizardStepCss';
 
 const QontoConnector = styled(StepConnector)(({ theme }) => ({

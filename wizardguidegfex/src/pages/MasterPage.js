@@ -29,7 +29,7 @@ export default function MasterPage() {
     try {
       setLoading(true);
 
-      // const user = await getUserLogged();
+      const user = await getUserLogged();
       const supplierS4 = await getSupplier({
         $filter: `DocumentId eq '${process.env.REACT_APP_SUPPLIER_TEST}'`,
         $expand:'toExCard'

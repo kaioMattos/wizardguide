@@ -40,7 +40,6 @@ export const getTableCount = async () => {
 };
 
 export const getUserLogged = async () => {
- 
   const { data } = await axios.get(userApi);
   return data.d?.results || data.d || data.value;
 };

@@ -2,5 +2,5 @@
   "compilerOptions": {
     "baseUrl": "src"
   },
-  "include": ["src", "setupTests.js"]
+  "include": ["src", "setupTests.js", "../../dashboardgfex/dashboardgfex/src/components/breadcrumbs"]
 }
